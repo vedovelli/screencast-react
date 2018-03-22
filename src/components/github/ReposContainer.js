@@ -4,25 +4,20 @@ import { fetchRepos } from '../../service/repos-api'
 import ReposList from './ReposList'
 
 class ReposContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      repos: [],
-      username: ''
-    }
-    this.changeHandler = this.changeHandler.bind(this)
-    this.submitHandler = this.submitHandler.bind(this)
+  state = {
+    repos: [],
+    username: ''
   }
-
   //
-  changeHandler(ev) {
+  changeHandler = (ev) => {
     this.setState({ username: ev.target.value })
   }
 
   //
-  submitHandler(ev) {
+  submitHandler = (ev) => {
     ev.preventDefault()
-    fetchRepos(this.state.username).then(res => this.setState({ repos: res.data }))
+    fetchRepos(this.state.username)
+      .then(res => this.setState({ repos: res.data }))
   }
 
   //
@@ -30,7 +25,7 @@ class ReposContainer extends Component {
     return (
       <div>
         <h1>Repos</h1>
-        <form action="#" onSubmit={this.submitHandler}>
+        <form onSubmit={this.submitHandler}>
           <input
             onChange={this.changeHandler}
             style={{width: '250px'}}
